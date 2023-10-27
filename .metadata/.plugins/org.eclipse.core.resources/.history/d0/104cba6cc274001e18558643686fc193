@@ -1,0 +1,67 @@
+package a4Fluentwait;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+
+/*
+ * Explicit Wait:  
+
+	•There can be instance when a particular element takes more than a minute to load.
+	•In that case you definitely not like to set a huge time to Implicit wait, as if you do this your browser will
+	 going to wait for the same time for every element.
+	•To avoid that situation you can simply put a separate time on the required element only.
+	•By following this your browser implicit wait time would be short for every element and it would be large for 
+	specific element.
+	
+*/
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.base.Function;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class sample {
+
+	public static void main(String[] args) {
+
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		driver.get("https://www.google.com/");
+
+		WebElement gmail = driver.findElement(By.xpath("//a[text()='Gmail']"));
+
+		WebDriverWait explicitWait = new WebDriverWait(driver, 10);
+		explicitWait.until(ExpectedConditions.visibilityOf(gmail)).getText();
+		
+		  // Fluent Wait
+		  Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+
+		    .withTimeout(30, TimeUnit.SECONDS)
+
+		    .pollingEvery(1, TimeUnit.SECONDS)
+
+		    .ignoring(NoSuchElementException.class);
+
+		  WebElement content = fluentWait.until(new Function<WebDriver, WebElement>() {
+		   public WebElement apply(WebDriver driver) {
+		    return driver.findElement(By.xpath("//h4[text()='Hello World!']"));
+		   }
+		  });
+
+		  System.out.println(content.getText());
+		 }
+
+		driver.close();
+	}
+}

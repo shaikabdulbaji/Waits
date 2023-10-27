@@ -1,0 +1,67 @@
+package a3Explicitwait;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+
+/*
+ * Implicit Wait: 
+
+	•During Implicit wait if the Web Driver cannot find it immediately because of its availability, it will
+	 keep polling the DOM to get the element.
+	•If the element is not available within the specified Time an NoSuchElementException will be raised.
+	•The default setting is zero.
+	•Once we set a time, the Web Driver waits for the period of the WebDriver object instance.
+ */
+
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class sample {
+
+
+		 public static void main(String[] args) {
+			 
+			 WebDriverManager.chromedriver().setup();
+				WebDriver driver = new ChromeDriver();
+				driver.manage().window().maximize();
+
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+				driver.get("https://www.google.com/");
+				
+				WebElement gmail = driver.findElement(By.xpath("//a[text()='Gmail']"));
+				
+				WebDriverWait explicitWait = new WebDriverWait(driver, 10);
+				explicitWait.until(ExpectedConditions.visibilityOf(gmail));
+
+				driver.close();
+		  
+			  	
+			  driver.findElement(By.xpath("//button[text()='Start']")).click();
+			  WebElement content = driver.findElement(By.xpath("//h4[text()='Hello World!']"));
+	
+			  // Explicit Wait
+			  WebDriverWait explicitWait = new WebDriverWait(driver, 10);
+			  explicitWait.until(ExpectedConditions.visibilityOf(content));
+	
+			  Assert.assertTrue(content.isDisplayed(), "Content is not displayed");
+			  System.out.println(content.getText());
+	
+			 }
+		 
+		 @AfterTest
+		 public void close() {
+		  driver.quit();
+		 }
+
+		}
+
+}

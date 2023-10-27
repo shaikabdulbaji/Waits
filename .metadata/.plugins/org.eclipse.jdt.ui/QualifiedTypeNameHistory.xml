@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeDriver"/>
+    <fullyQualifiedTypeName name="io.github.bonigarcia.wdm.WebDriverManager"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.FluentWait"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.Wait"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.NoSuchElementException"/>
+    <fullyQualifiedTypeName name="com.google.common.base.Function"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+</qualifiedTypeNameHistroy>
